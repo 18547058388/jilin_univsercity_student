@@ -19,11 +19,11 @@
 		</view>
 		<view v-if="show == 3">
 			<view style="margin-top: 20px;">
-				<el-select v-model="value" clearable placeholder="请选择专业">
-					<el-option v-for="(item,index) in SpecialityList" :key="index" :label="item.majorName" :value="item.majorName"></el-option>
+				<el-select v-model="specialityvalue" clearable placeholder="请选择专业">
+					<el-option v-for="(item, index) in SpecialityList" :key="index" :label="item.majorName" :value="item.majorName"></el-option>
 				</el-select>
-				<el-select v-model="value" clearable placeholder="请选择专业" style="margin-left: 20px;">
-					<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
+				<el-select v-model="coursevalue" clearable placeholder="请选择课程" style="margin-left: 20px;">
+					<el-option v-for="(item,index) in CourseList" :key="index" :label="item.courseName" :value="item.courseName"></el-option>
 				</el-select>
 				<el-button icon="el-icon-search" type="success" style="margin-left: 20px;width: 120px;" @click="getPayInventory">搜索</el-button>
 				<el-table :data="tableData01" style="width: 900px;margin-top: 20px;">
@@ -43,31 +43,10 @@
 export default {
 	data() {
 		return {
-			SpecialityList:[],
-			
-			options: [
-				{
-					value: '选项1',
-					label: '计算机'
-				},
-				{
-					value: '选项2',
-					label: '室内设计'
-				},
-				{
-					value: '选项3',
-					label: '食品与安全'
-				},
-				{
-					value: '选项4',
-					label: '云计算'
-				},
-				{
-					value: '选项5',
-					label: '通信'
-				}
-			],
-			value: '',
+			SpecialityList: [],
+            CourseList:[],
+			specialityvalue:'',
+			coursevalue: '',
 			show: 1,
 			tableData01: [
 				{
@@ -134,17 +113,28 @@ export default {
 		};
 	},
 	mounted() {
-		this.getspecialitylist();
 	},
 	methods: {
-		getspecialitylist(){
-			let self=this;
+		getspeciality() {
+			let self = this;
 			this.request.post({
-				url:'teacher/teacher/university/school/major/v1/list',
-				success:response=>{
-					console.log(11111111);
+				url: 'teacher/teacher/university/school/major/v1/list',
+				success: response => {
 					console.log(response);
-					self.SpecialityList=response.rtData.dts;
+					self.SpecialityList = response.rtData.dts;
+				},
+				error: error => {
+					console.log(error.errMsg);
+				}
+			});
+		},
+		getcourse(){
+			let self= this;
+			this.request.post({
+				url:'teacher/teacher/course/v1/list',
+				success:response=>{
+					console.log(response);
+					self.CourseList=response.rtData.dts;
 				},
 				error:error=>{
 					console.log(error.errMsg);
@@ -162,6 +152,8 @@ export default {
 		},
 		openSpeciality() {
 			this.show = 3;
+			this.getspeciality();
+			this.getcourse();
 		}
 	}
 };
