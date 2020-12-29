@@ -18,7 +18,7 @@
     <el-table-column
       prop="province"
       label="违纪解除原因"
-      width="1350">
+      width="200">
     </el-table-column>
     <el-table-column
       prop="shepi"
@@ -26,7 +26,7 @@
       width="100">
       <template slot-scope="scope">
         <el-button @click="handleClick(scope.row)" type="primary" size="small" style="margin-left: 10px;margin-bottom: 5px;">同意</el-button>
-        <el-button @click="handleClick(scope.row)" type="warning" size="small">拒绝</el-button>
+        <el-button @click="handleClick(scope.row)" type="danger" size="small">拒绝</el-button>
       </template>
     </el-table-column>
   </el-table>

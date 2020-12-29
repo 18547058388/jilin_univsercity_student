@@ -5,12 +5,7 @@
     :data="tableData"
     border
     style="width: 100%;">
-	<el-table-column
-	  prop="province"
-	  label="头像"
-	  width="115">
-	  <image class="userimg" src="../static/logo.png"></image>
-	</el-table-column>
+
     <el-table-column
       prop="date"
       label="日期"
@@ -37,7 +32,7 @@
       width="100">
       <template slot-scope="scope">
         <el-button @click="handleClick(scope.row)" type="primary" size="small" style="margin-left: 10px;margin-bottom: 5px;">同意</el-button>
-        <el-button @click="handleClick(scope.row)" type="warning" size="small">拒绝</el-button>
+        <el-button @click="handleClick(scope.row)" type="danger" size="small">拒绝</el-button>
       </template>
     </el-table-column>
   </el-table>

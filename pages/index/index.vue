@@ -2,35 +2,6 @@
 	<el-container style="height: 1000px; border: 1px solid #eee">
 		<el-aside width="200px" style="background-color: rgb(238, 241, 246)">
 			<el-menu>
-				<el-submenu index="5">
-					<template slot="title">
-						<i class="el-icon-setting"></i>
-						学生事务管理
-					</template>
-					<el-menu-item-group>
-						<!--  <template slot="title">分组一</template> -->
-						<el-menu-item index="501" @click="makeup($event.index)">违纪管理</el-menu-item>
-						<el-menu-item index="502" @click="makeup($event.index)">申诉管理</el-menu-item>
-						<el-menu-item index="503" @click="makeup($event.index)">违纪解除</el-menu-item>
-					</el-menu-item-group>
-				</el-submenu>
-				<el-submenu index="6">
-					<template slot="title">
-						<i class="el-icon-setting"></i>
-						学生请假管理
-					</template>
-					<el-menu-item-group>
-						<el-menu-item index="601" @click="makeup($event.index)">日常请假管理</el-menu-item>
-						<el-menu-item index="602" @click="makeup($event.index)">节日去向管理</el-menu-item>
-					</el-menu-item-group>
-				</el-submenu>
-				<el-submenu index="7">
-					<template slot="title">
-						<i class="el-icon-setting"></i>
-						学生证补办管理
-					</template>
-					<el-menu-item-group><el-menu-item index="701" @click="makeup($event.index)">学生证补办申请</el-menu-item></el-menu-item-group>
-				</el-submenu>
 				<el-submenu index="8">
 					<template slot="title">
 						<i class="el-icon-setting"></i>
@@ -64,9 +35,7 @@
 						<i class="el-icon-message"></i>
 						学生证补办管理（教师）
 					</template>
-					<el-menu-item-group>
-						<el-menu-item index="1101" @click="makeup($event.index)">学生证补办申请审批</el-menu-item>
-					</el-menu-item-group>
+					<el-menu-item-group><el-menu-item index="1101" @click="makeup($event.index)">学生证补办申请审批</el-menu-item></el-menu-item-group>
 				</el-submenu>
 			</el-menu>
 		</el-aside>
@@ -97,15 +66,12 @@
 				<cviolation v-if="num == 501"></cviolation>
 				<cappeal v-if="num == 502"></cappeal>
 				<crelieve v-if="num == 503"></crelieve>
-				<fmakeup v-if="num == 701"></fmakeup>
 				<fmakeupteacher v-if="num == 1101"></fmakeupteacher>
-				<fdailyleave v-if="num == 601"></fdailyleave>
 				<fappealteacher v-if="num == 903"></fappealteacher>
 				<fviolationteacher v-if="num == 902"></fviolationteacher>
 				<fdisciplinaryteacher v-if="num == 901"></fdisciplinaryteacher>
 				<fleaveteacher v-if="num == 1001"></fleaveteacher>
 				<fholidayteacher v-if="num == 1002"></fholidayteacher>
-				<fholidaydestination v-if="num == 602"></fholidaydestination>
 			</el-main>
 		</el-container>
 	</el-container>
@@ -113,12 +79,8 @@
 <script>
 /*违纪管理*/
 import cviolation from '../../components/cviolation.vue';
-/*学生证补办申请*/
-import fmakeup from '../../components/fmakeup.vue';
 /*学生证补办审批*/
 import fmakeupteacher from '../../components/fmakeupteacher.vue';
-/*学生日常请假*/
-import fdailyleave from '../../components/fdailyleave.vue';
 /*审批学生违纪解除*/
 import fappealteacher from '../../components/fappealteacher.vue';
 /*审批学生申诉*/
@@ -129,11 +91,8 @@ import fdisciplinaryteacher from '../../components/fdisciplinaryteacher.vue';
 import fleaveteacher from '../../components/fleaveteacher.vue';
 /*查阅学生节日去向信息*/
 import fholidayteacher from '../../components/fholidayteacher.vue';
-/*学生假日去向*/
-import fholidaydestination from '../../components/fholidaydestination.vue';
 // 课程表(教师)
 import timetableT from '../../components/timetableT.vue';
-
 
 export default {
 	data() {
@@ -148,17 +107,14 @@ export default {
 		}
 	},
 	components: {
-		fmakeup,
 		fmakeupteacher,
-		fdailyleave,
 		fappealteacher,
 		fviolationteacher,
 		fdisciplinaryteacher,
 		fleaveteacher,
 		fholidayteacher,
-		fholidaydestination,
 		cviolation,
-		timetableT,
+		timetableT
 	}
 };
 </script>
