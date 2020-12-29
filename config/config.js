@@ -1,6 +1,6 @@
 /* 开发环境(嘉悦云) */
 export default {
-	requestUrl:'http://192.168.101.69:8002', //教师端
+	requestUrl:'http://192.168.101.69:8002/', //教师端
 	fileUrl:''
 };
 
