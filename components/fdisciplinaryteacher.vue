@@ -1,16 +1,15 @@
 <template>
 	<!-- 审批学生违纪 -->
-	<el-table :data="tableData" border stripe style="width:100%">
+	<el-table :data="tableData" border stripe style="width:100%" height="750">
 		<el-table-column prop="date" label="日期" width="100"></el-table-column>
 		<el-table-column prop="name" label="姓名" width="120"></el-table-column>
 		<el-table-column prop="applyReason" label="违纪原因" width="200"></el-table-column>
-		<el-table-column prop="shepi" label="操作" width="100">
+		<el-table-column prop="shepi" label="操作" width="170">
 			<template slot-scope="scope">
-				<el-button @click="handleClick(scope.$index)"
-				 type="primary" size="small"
-				  style="margin-left: 10px;margin-bottom: 5px;">
-				  同意</el-button>
-				<el-button @click="jujueClick(scope.$index)" type="danger" size="small">拒绝</el-button>
+				<view style="display: flex;">
+					<el-button @click="handleClick(scope.$index)" type="primary" size="small" style="margin-left: 10px;margin-bottom: 5px;">同意</el-button>
+					<el-button @click="jujueClick(scope.$index)" type="danger" size="small" style="margin-left: 10px;margin-bottom: 5px;">拒绝</el-button>
+				</view>
 			</template>
 		</el-table-column>
 	</el-table>
@@ -41,22 +40,36 @@ export default {
 		return {
 			tableData: [
 				{
-					date: '2016-05-02',
-					name: '王小虎',
-					applyReason: '抽烟'
-				},
-				{
-					date: '2016-07-05',
-					name: '王小虎',
-					applyReason: '喝酒'
-				},
-				{
-					date: '2016-09-20',
-					name: '王小虎',
-					applyReason: '烫头'
+					date: '',
+					name: '',
+					applyReason: ''
 				}
 			]
 		};
+	},
+	mounted() {
+		uni.showLoading({
+			mask: true
+		});
+		this.request.post({
+			url: 'teacher/teacher/approval/v1/list',
+			params: {
+				applyStatus: 1,
+				applyType: 14 //????????????????????????????教师查询学生违纪
+			},
+			success: res => {
+				console.log(res);
+				if (res.rtData.dts == '') {
+					this.tableData = '';
+				} else {
+				this.tableData=res.rtData.dts
+				}
+				uni.hideLoading();
+			},
+			error: err => {
+				console.log(err);
+			}
+		});
 	}
 };
 </script>
