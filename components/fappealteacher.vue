@@ -7,8 +7,8 @@
 		<el-table-column prop="shepi" label="操作" width="170">
 			<template slot-scope="scope">
 				<view style="display: flex;">
-					<el-button @click="handleClick(scope.row)" type="primary" size="small" style="margin-left: 10px;margin-bottom: 5px;">同意</el-button>
-					<el-button @click="handleClick(scope.row)" type="danger" size="small" style="margin-left: 10px;margin-bottom: 5px;">拒绝</el-button>
+					<el-button @click="handleClick(scope.$index)" type="primary" size="small" style="margin-left: 10px;margin-bottom: 5px;">同意</el-button>
+					<el-button @click="handleClickjujue(scope.$index)" type="danger" size="small" style="margin-left: 10px;margin-bottom: 5px;">拒绝</el-button>
 				</view>
 			</template>
 		</el-table-column>
@@ -24,38 +24,11 @@ export default {
 	},
 	data() {
 		return {
-			tableData: [
-				{
-					date: '',
-					name: '',
-					applyReason: ''
-				}
-			]
+			tableData: []
 		};
 	},
 	mounted() {
-		uni.showLoading({
-			mask: true
-		});
-		this.request.post({
-			url: 'teacher/teacher/approval/v1/list',
-			params: {
-				applyStatus: 1,
-				applyType: 14
-			},
-			success: res => {
-				console.log(res);
-				if (res.rtData.dts == '') {
-					this.tableData = '';
-				} else {
-					this.tableData=res.rtData.dts
-				}
-				uni.hideLoading();
-			},
-			error: err => {
-				console.log(err);
-			}
-		});
+		
 	}
 };
 </script>

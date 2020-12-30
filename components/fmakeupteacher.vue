@@ -18,103 +18,92 @@
 <script>
 export default {
 	methods: {
-		
-		
-	handleClickjujue(row) {
-		this.request.post({
-			url: 'teacher/teacher/approval/v1/apply',
-			params: {
-				applyStatus: 4,
-				studentApplyId: this.tableData[row].studentApplyId
-			},
-			success: res => {
-				console.log(res);
-	
-				uni.showLoading({
-					mask: true
-				});
-				this.request.post({
-					url: 'teacher/teacher/approval/v1/list',
-					params: {
-						teacher: '1252040511921938433',
-						applyStatus: 1,
-						applyType:14
-					},
-					success: res => {
-						console.log(res);
-						if (res.rtData.dts == '') {
-							this.tableData = '';
-						} else {
-							this.tableData = res.rtData.dts;
+		handleClickjujue(row) {
+			this.request.post({
+				url: 'teacher/teacher/approval/v1/apply',
+				params: {
+					applyStatus: 4,
+					studentApplyId: this.tableData[row].studentApplyId
+				},
+				success: res => {
+					console.log(res);
+
+					uni.showLoading({
+						mask: true
+					});
+					this.request.post({
+						url: 'teacher/teacher/approval/v1/list',
+						params: {
+							teacher: '1252040511921938433',
+							applyStatus: 1,
+							applyType: 14
+						},
+						success: res => {
+							console.log(res);
+							if (res.rtData.dts == '') {
+								this.tableData = '';
+							} else {
+								this.tableData = res.rtData.dts;
+							}
+							uni.hideLoading();
+						},
+						error: err => {
+							console.log(err);
 						}
-						uni.hideLoading();
-					},
-					error: err => {
-						console.log(err);
-					}
-				});
-			},
-			error: err => {
-				console.log(err);
-			}
-		});
-		console.log(row);
-		console.log(this.tableData[row].studentApplyId);
-	},
-	handleClick(row) {
-		this.request.post({
-			url: 'teacher/teacher/approval/v1/apply',
-			params: {
-				applyStatus: 3,
-				studentApplyId: this.tableData[row].studentApplyId
-			},
-			success: res => {
-				console.log(res);
-	
-				uni.showLoading({
-					mask: true
-				});
-				this.request.post({
-					url: 'teacher/teacher/approval/v1/list',
-					params: {
-						teacher: '1252040511921938433',
-						applyStatus: 1,
-						applyType: 14
-					},
-					success: res => {
-						console.log(res);
-						if (res.rtData.dts == '') {
-							this.tableData = '';
-						} else {
-							this.tableData = res.rtData.dts;
+					});
+				},
+				error: err => {
+					console.log(err);
+				}
+			});
+			console.log(row);
+			console.log(this.tableData[row].studentApplyId);
+		},
+		handleClick(row) {
+			this.request.post({
+				url: 'teacher/teacher/approval/v1/apply',
+				params: {
+					applyStatus: 3,
+					studentApplyId: this.tableData[row].studentApplyId
+				},
+				success: res => {
+					console.log(res);
+
+					uni.showLoading({
+						mask: true
+					});
+					this.request.post({
+						url: 'teacher/teacher/approval/v1/list',
+						params: {
+							teacher: '1252040511921938433',
+							applyStatus: 1,
+							applyType: 14
+						},
+						success: res => {
+							console.log(res);
+							if (res.rtData.dts == '') {
+								this.tableData = '';
+							} else {
+								this.tableData = res.rtData.dts;
+							}
+							uni.hideLoading();
+						},
+						error: err => {
+							console.log(err);
 						}
-						uni.hideLoading();
-					},
-					error: err => {
-						console.log(err);
-					}
-				});
-			},
-			error: err => {
-				console.log(err);
-			}
-		});
-		console.log(row);
-		console.log(this.tableData[row].studentApplyId);
-	}
-		
-		
-		
-		
-		
-		
-		
+					});
+				},
+				error: err => {
+					console.log(err);
+				}
+			});
+			console.log(row);
+			console.log(this.tableData[row].studentApplyId);
+		}
 	},
 	data() {
 		return {
-			tableData: [
-			
-			]
+			tableData: []
 		};
 	},
 	mounted() {
@@ -124,16 +113,16 @@ export default {
 		this.request.post({
 			url: 'teacher/teacher/approval/v1/list',
 			params: {
-				teacher:"1252040511921938433",
-				applyStatus: "1",
-				applyType:"14"
+				teacher: '1252040511921938433',
+				applyStatus: '1',
+				applyType: '14'
 			},
 			success: res => {
 				console.log(res);
 				if (res.rtData.dts == '') {
 					this.tableData = '';
 				} else {
-				this.tableData=res.rtData.dts
+					this.tableData = res.rtData.dts;
 				}
 				uni.hideLoading();
 			},

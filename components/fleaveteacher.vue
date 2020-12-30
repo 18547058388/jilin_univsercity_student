@@ -18,6 +18,9 @@
 export default {
 	methods: {
 		handleClickjujue(row) {
+			uni.showLoading({
+				mask:true
+			})
 			this.request.post({
 				url: 'teacher/teacher/approval/v1/apply',
 				params: {
@@ -39,6 +42,7 @@ export default {
 						},
 						success: res => {
 							console.log(res);
+							
 							if (res.rtData.dts == '') {
 								this.tableData = '';
 							} else {
@@ -55,8 +59,9 @@ export default {
 					console.log(err);
 				}
 			});
-			console.log(row);
-			console.log(this.tableData[row].studentApplyId);
+			// console.log(row);
+			// console.log(this.tableData[row].studentApplyId);
+			// uni.hideLoading();
 		},
 		handleClick(row) {
 			this.request.post({
