@@ -1,7 +1,7 @@
 <template>
 	<view>
-		<el-button @click="openVariable">在线选课</el-button>
-		<el-button @click="openSpeciality">课程信息</el-button>
+		<el-button @click="openVariable">在线排课</el-button>
+		<el-button @click="openSpeciality">课程安排</el-button>
 		<view v-if="show == 2" border style="margin-left: 20px;margin-top: 20px;">
 			<view>
 				<el-button icon="el-icon-plus" circle type="primary" @click="add"></el-button>
@@ -54,11 +54,17 @@
 							clearable
 							style="width: 150px;margin-top: 20px;margin-left: 20px;"
 						></el-input>
+						<el-input
+							placeholder="请填写上课人数"
+							v-model="select.studentNum"
+							clearable
+							style="width: 150px;margin-top: 20px;margin-left: 20px;"
+						></el-input>
 						<el-button icon="el-icon-delete" circle type="danger" @click="deletes" style="margin-left: 20px;"></el-button>
 					</view>
 				</view>
 			</view>
-			<el-button type="primary" style="width: 100px;margin-top: 20px;" @click="conserve">保存</el-button>
+			<el-button type="primary" style="width: 100px;margin-top: 20px;" @click="conserve" :loading="loading">保存</el-button>
 		</view>
 		<view v-if="show == 3">
 			<view style="margin-top: 20px;">
@@ -87,14 +93,19 @@
 					<el-option v-for="(item, index) in CourseList" :key="index" :label="item.courseName" :value="item.courseId"></el-option>
 				</el-select>
 				<el-button icon="el-icon-search" type="success" style="margin-left: 20px;width: 120px;" @click="getClassMessage">搜索</el-button>
-				<el-table :data="ClassMessageList" stripe style="width: 1050px;margin-top: 20px;">
-					<el-table-column  prop="schoolYearName" label="学年" width="150"></el-table-column>
-					<el-table-column prop="majorName" label="专业" width="150"></el-table-column>
-					<el-table-column prop="courseName" label="科目" width="150"></el-table-column>
-					<el-table-column prop="week" label="星期" width="150"></el-table-column>
-					<el-table-column prop="classNum" label="课节" width="150"></el-table-column>
-					<el-table-column prop="address" label="教室" width="150"></el-table-column>
-					<el-table-column prop="realName" label="教师" width="150"></el-table-column>
+				<el-table :data="ClassMessageList" stripe style="margin-top: 20px;">
+					<el-table-column  prop="schoolYearName" label="学年" ></el-table-column>
+					<el-table-column prop="majorName" label="专业" ></el-table-column>
+					<el-table-column prop="courseName" label="科目" ></el-table-column>
+					<el-table-column prop="week" label="星期" ></el-table-column>
+					<el-table-column prop="classNum" label="课节" ></el-table-column>
+					<el-table-column prop="address" label="教室" ></el-table-column>
+					<el-table-column prop="realName" label="教师" ></el-table-column>
+					<el-table-column  label="人数" >
+						<template slot-scope = "scope">
+							{{scope.row.studentCourseNum}}/{{scope.row.studentNum}}
+						</template>
+					</el-table-column>
 				</el-table>
 			</view>
 		</view>
@@ -105,10 +116,13 @@
 export default {
 	data() {
 		return {
+			loading:false,
 			//选课数组
 			teacherCourseList: [],
 			//课程安排数组
 			ClassPlanList: [],
+			//时间
+			nowTimevalue: '',
 			//星期
 			WeekList: [{ weeklabel: '1' }, { weeklabel: '2' }, { weeklabel: '3' }, { weeklabel: '4' }, { weeklabel: '5' }, { weeklabel: '6' }],
 			//课节
@@ -137,6 +151,7 @@ export default {
 	methods: {
 	//添加按钮
 		add() {
+			this.loading=false;
 			this.teacherCourseList.push({
 				//学年
 				schoolYearId: '',
@@ -150,7 +165,8 @@ export default {
 				classNum: '',
 				//教室
 				address: '',
-				//教师ID
+				//人数
+				studentNum:'',
 				teacherId: '1252040511921938433'
 			});
 		},
@@ -161,6 +177,7 @@ export default {
 		//保存按钮
 		conserve() {
 			let self = this;
+			this.loading=true;
 			this.request.post({
 				url: 'teacher/teacher/course/v1/add',
 				params: {
@@ -169,6 +186,8 @@ export default {
 				success: response => {
 					console.log(response);
 					this.alert.showMessage('选课成功');
+					this.teacherCourseList=[];
+					this.loading=false;
 				},
 				error: error => {
 					console.log(error.errMsg);
@@ -237,6 +256,10 @@ export default {
 		handleClick(row) {
 			console.log(row);
 		},
+		//查询课程安排页面
+		openCourse() {
+			this.show = 1;
+		},
 		//在线选课页面
 		openVariable() {
 			this.show = 2;
@@ -251,7 +274,7 @@ export default {
 			this.getcourse();
 		},
 		/*
-		 *课程信息
+		 *课程安排
 		 * teacherId，教师主键
 		 * universitySchoolMajorId，专业主键
 		 * courseId，课程主键
