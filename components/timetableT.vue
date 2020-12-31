@@ -1,27 +1,14 @@
 <template>
 	<view>
-		<el-button @click="openCourse">查询课程安排</el-button>
 		<el-button @click="openVariable">在线选课</el-button>
-		<el-button @click="openSpeciality">在线查询课程信息</el-button>
-		<view v-if="show == 1" style="margin-left: 20px;margin-top: 20px;">
-			<div class="block">
-				<el-date-picker v-model="nowTimevalue" type="datetime" placeholder="选择日期时间"></el-date-picker>
-				<el-button type="primary" style="margin-left: 20px;" @click="ClassPlan">查询</el-button>
-			</div>
-			<el-table :data="ClassPlanList" stripe style="width: 550px;margin-top: 20px;">
-				<el-table-column fixed prop="week" label="星期" width="150"></el-table-column>
-				<el-table-column prop="courseName" label="科目" width="250"></el-table-column>
-				<el-table-column prop="address" label="教学地址" width="150"></el-table-column>
-			</el-table>
-		</view>
+		<el-button @click="openSpeciality">课程信息</el-button>
 		<view v-if="show == 2" border style="margin-left: 20px;margin-top: 20px;">
 			<view>
 				<el-button icon="el-icon-plus" circle type="primary" @click="add"></el-button>
 				<view v-for="(select, index) in teacherCourseList" :key="index">
 					<view>
 						<el-select v-model="select.schoolYearId" clearable placeholder="请选择学年" style="width: 150px;">
-							<!-- @change="onSchoolYearChange($event, schoolYearId)"
-							value-key="schoolYearId" -->
+					
 							<el-option
 								v-for="(item, index) in SchoolYearList"
 								:key="index"
@@ -122,8 +109,6 @@ export default {
 			teacherCourseList: [],
 			//课程安排数组
 			ClassPlanList: [],
-			//时间
-			nowTimevalue: '',
 			//星期
 			WeekList: [{ weeklabel: '1' }, { weeklabel: '2' }, { weeklabel: '3' }, { weeklabel: '4' }, { weeklabel: '5' }, { weeklabel: '6' }],
 			//课节
@@ -150,32 +135,7 @@ export default {
 		this.getClassMessage();
 	},
 	methods: {
-		//确定按钮事件
-		ClassPlan() {
-			this.ClassPlan();
-		},
-		/*
-		 *课程安排
-		 *
-		 */
-		ClassPlan() {
-			let self = this;
-			this.request.post({
-				url: 'teacher/teacher/course/v1/arrange',
-				params: {
-					nowTime: this.nowTimevalue,
-					teacherId: '1252040511921938433'
-				},
-				success: response => {
-					console.log(response);
-					self.ClassPlanList = response.rtData.dts;
-				},
-				error: error => {
-					console.log(error.errMsg);
-				}
-			});
-		},
-		//添加按钮
+	//添加按钮
 		add() {
 			this.teacherCourseList.push({
 				//学年
@@ -190,6 +150,7 @@ export default {
 				classNum: '',
 				//教室
 				address: '',
+				//教师ID
 				teacherId: '1252040511921938433'
 			});
 		},
@@ -197,7 +158,6 @@ export default {
 		deletes() {
 			this.teacherCourseList.splice(0, 1);
 		},
-
 		//保存按钮
 		conserve() {
 			let self = this;
@@ -276,10 +236,6 @@ export default {
 
 		handleClick(row) {
 			console.log(row);
-		},
-		//查询课程安排页面
-		openCourse() {
-			this.show = 1;
 		},
 		//在线选课页面
 		openVariable() {
