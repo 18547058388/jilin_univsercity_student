@@ -8,8 +8,27 @@
 		<el-table-column prop="shepi" label="操作" width="170">
 			<template slot-scope="scope">
 				<view style="display: flex;">
-					<el-button @click="handleClick(scope.$index)" type="primary" size="small" style="margin-left: 10px;margin-bottom: 5px;">同意</el-button>
-					<el-button @click="handleClickjujue(scope.$index)" type="danger" size="small" style="margin-left: 10px;margin-bottom: 5px;">拒绝</el-button>
+					<el-button
+						@click="handleClick(scope.$index)"
+						v-if="tableData[scope.$index].applyStatus == 1"
+						type="primary"
+						size="small"
+						style="margin-left: 10px;margin-bottom: 5px;"
+					>
+						同意
+					</el-button>
+					<el-button
+						@click="handleClickjujue(scope.$index)"
+						v-if="tableData[scope.$index].applyStatus == 1"
+						type="danger"
+						size="small"
+						style="margin-left: 10px;margin-bottom: 5px;"
+					>
+						拒绝
+					</el-button>
+					<el-button type="warning" v-if="tableData[scope.$index].applyStatus == 2" style="margin-left: 10px;" size="small">已取消</el-button>
+					<el-button type="success" v-if="tableData[scope.$index].applyStatus == 3" style="margin-left: 10px;" size="small">审核通过</el-button>
+					<el-button type="danger" v-if="tableData[scope.$index].applyStatus == 4" style="margin-left: 10px;" size="small">审核驳回</el-button>
 				</view>
 			</template>
 		</el-table-column>
@@ -19,52 +38,73 @@
 export default {
 	methods: {
 		handleClickjujue(row) {
-			this.request.post({
-				url: 'teacher/teacher/approval/v1/apply',
-				params: {
-					applyStatus: 4,
-					studentApplyId: this.tableData[row].studentApplyId
-				},
-				success: res => {
-					console.log(res);
-
-					uni.showLoading({
-						mask: true
-					});
-					this.request.post({
-						url: 'teacher/teacher/approval/v1/list',
-						params: {
-							teacher: '1252040511921938433',
-							applyStatus: 1,
-							applyType: 14
-						},
-						success: res => {
-							console.log(res);
-							if (res.rtData.dts == '') {
-								this.tableData = '';
-							} else {
-								this.tableData = res.rtData.dts;
+			this.$prompt('请输入驳回原因', '提示', {
+				confirmButtonText: '确定',
+				cancelButtonText: '取消',
+				inputType:"textarea"
+			})
+				.then(({ value }) => {
+					if(value==''||value==null){
+						this.$message("必须输入驳回原因")
+					}
+					else{
+						this.request.post({
+							url: 'teacher/teacher/approval/v1/apply',
+							params: {
+								applyStatus: 4,
+								studentApplyId: this.tableData[row].studentApplyId,
+								checkReason:value
+							},
+							success: res => {
+								console.log(res);
+						
+								uni.showLoading({
+									mask: true
+								});
+								this.request.post({
+									url: 'teacher/teacher/approval/v1/list',
+									params: {
+										teacher: '1252040511921938433',
+										applyType: 14
+									},
+									success: res => {
+										console.log(res);
+										if (res.rtData.dts == '') {
+											this.tableData = '';
+										} else {
+											this.tableData = res.rtData.dts;
+										}
+										uni.hideLoading();
+									},
+									error: err => {
+										console.log(err);
+									}
+								});
+							},
+							error: err => {
+								console.log(err);
 							}
-							uni.hideLoading();
-						},
-						error: err => {
-							console.log(err);
-						}
+						});
+						this.$message({
+							type: 'success',
+							message: '驳回成功'
+						});
+					}
+				})
+				.catch(() => {
+					this.$message({
+						type: 'info',
+						message: '取消输入'
 					});
-				},
-				error: err => {
-					console.log(err);
-				}
-			});
-			console.log(row);
-			console.log(this.tableData[row].studentApplyId);
+				});
 		},
 		handleClick(row) {
 			this.request.post({
 				url: 'teacher/teacher/approval/v1/apply',
 				params: {
 					applyStatus: 3,
-					studentApplyId: this.tableData[row].studentApplyId
+					studentApplyId: this.tableData[row].studentApplyId,
+					checkReason:'同意'
 				},
 				success: res => {
 					console.log(res);
@@ -76,7 +116,6 @@ export default {
 						url: 'teacher/teacher/approval/v1/list',
 						params: {
 							teacher: '1252040511921938433',
-							applyStatus: 1,
 							applyType: 14
 						},
 						success: res => {
@@ -114,7 +153,6 @@ export default {
 			url: 'teacher/teacher/approval/v1/list',
 			params: {
 				teacher: '1252040511921938433',
-				applyStatus: '1',
 				applyType: '14'
 			},
 			success: res => {
