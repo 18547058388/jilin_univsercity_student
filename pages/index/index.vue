@@ -9,6 +9,13 @@
 					</template>
 					<el-menu-item-group><el-menu-item index="801" @click="makeup($event.index)">课程表</el-menu-item></el-menu-item-group>
 				</el-submenu>
+			 	<el-submenu index="5">
+					<template slot="title">
+						<i class="el-icon-setting"></i>
+						寝室管理（教师）
+					</template>
+					<el-menu-item-group><el-menu-item index="501" @click="makeup($event.index)">学生宿舍管理</el-menu-item></el-menu-item-group>
+				</el-submenu> 
 				<el-submenu index="9">
 					<template slot="title">
 						<i class="el-icon-message"></i>
