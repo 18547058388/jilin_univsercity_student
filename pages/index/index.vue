@@ -14,7 +14,9 @@
 						<i class="el-icon-setting"></i>
 						寝室管理（教师）
 					</template>
-					<el-menu-item-group><el-menu-item index="501" @click="makeup($event.index)">学生宿舍管理</el-menu-item></el-menu-item-group>
+					<el-menu-item-group><el-menu-item index="501" @click="makeup($event.index)">学生宿舍查询</el-menu-item></el-menu-item-group>
+					<el-menu-item-group><el-menu-item index="504" @click="makeup($event.index)">学生寝室调整</el-menu-item></el-menu-item-group>
+					
 				</el-submenu> 
 				<el-submenu index="9">
 					<template slot="title">
@@ -73,6 +75,7 @@
 				<cviolation v-if="num == 501"></cviolation>
 				<cappeal v-if="num == 502"></cappeal>
 				<crelieve v-if="num == 503"></crelieve>
+				<manage v-if="num == 504"></manage>
 				<fmakeupteacher v-if="num == 1101"></fmakeupteacher>
 				<fappealteacher v-if="num == 903"></fappealteacher>
 				<fviolationteacher v-if="num == 902"></fviolationteacher>
@@ -100,6 +103,8 @@ import fleaveteacher from '../../components/fleaveteacher.vue';
 import fholidayteacher from '../../components/fholidayteacher.vue';
 // 课程表(教师)
 import timetableT from '../../components/timetableT.vue';
+//寝室调整管理
+import manage from '../../components/manage.vue'
 
 export default {
 	data() {
@@ -121,7 +126,8 @@ export default {
 		fleaveteacher,
 		fholidayteacher,
 		cviolation,
-		timetableT
+		timetableT,
+		manage,
 	}
 };
 </script>
