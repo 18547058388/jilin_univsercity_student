@@ -59,7 +59,8 @@ export default {
 		open(scope) {
 			this.$prompt('请填写驳回理由', '提示', {
 				confirmButtonText: '确定',
-				cancelButtonText: '取消'
+				cancelButtonText: '取消',
+				inputType:"textarea"
 			})
 				.then(({ value }) => {
 					this.$message({
@@ -74,7 +75,8 @@ export default {
 							teacherId: 1252040511921938433,
 							applyStatus: 4,
 							studentApplyId: scope.studentApplyId,
-							checkReason: value
+							checkReason: value,
+							inputType:"textarea"
 						},
 						success: response => {
 							console.log(response);
