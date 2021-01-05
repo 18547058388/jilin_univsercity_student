@@ -106,6 +106,11 @@
 							{{scope.row.studentCourseNum}}/{{scope.row.studentNum}}
 						</template>
 					</el-table-column>
+					<el-table-column fixed="right" label="操作" width="200">
+						<template slot-scope="scope">
+							<el-button  type="text"  @click="gotoDetails(scope.row)">选课详情</el-button>
+						</template>
+					</el-table-column>
 				</el-table>
 			</view>
 		</view>
@@ -136,7 +141,7 @@ export default {
 			//课程数组
 			CourseList: [],
 			//默认显示页面
-			show: 1,
+			show: 3,
 			//课程信息
 			ClassMessageList: [],
 			//第三页面拿到专业的值
@@ -149,6 +154,11 @@ export default {
 		this.getClassMessage();
 	},
 	methods: {
+		//选课详情
+		gotoDetails(scope){
+			console.log(scope)
+			uni.$emit('approve',scope);
+		},
 	//添加按钮
 		add() {
 			this.loading=false;
@@ -185,7 +195,7 @@ export default {
 				},
 				success: response => {
 					console.log(response);
-					this.alert.showMessage('选课成功');
+					this.alert.showMessage('排课成功');
 					this.teacherCourseList=[];
 					this.loading=false;
 				},
@@ -257,7 +267,7 @@ export default {
 			console.log(row);
 		},
 		//查询课程安排页面
-		openCourse() {
+		openApprove() {
 			this.show = 1;
 		},
 		//在线选课页面

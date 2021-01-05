@@ -72,6 +72,7 @@
 			</el-header>
 			<el-main>
 				<timetableT v-if="num == 801"></timetableT>
+				<approve v-if="num == 802" :teacherCourseId="teacherCourseId"></approve>
 				<cviolation v-if="num == 501"></cviolation>
 				<cappeal v-if="num == 502"></cappeal>
 				<crelieve v-if="num == 503"></crelieve>
@@ -104,12 +105,15 @@ import fholidayteacher from '../../components/fholidayteacher.vue';
 // 课程表(教师)
 import timetableT from '../../components/timetableT.vue';
 //寝室调整管理
-import manage from '../../components/manage.vue'
+import manage from '../../components/manage.vue';
+//在线审批
+import approve from '../../components/approve.vue';
 
 export default {
 	data() {
 		return {
-			num: 0
+			num: 0,
+			teacherCourseId:'',
 		};
 	},
 	methods: {
@@ -128,6 +132,14 @@ export default {
 		cviolation,
 		timetableT,
 		manage,
+		approve,
+	},
+	mounted() {
+		uni.$on('approve',callback=>{
+			this.teacherCourseId=callback.teacherCourseId;
+			console.log(this.teacherCourseId)
+			this.num=802;
+		})
 	}
 };
 </script>
