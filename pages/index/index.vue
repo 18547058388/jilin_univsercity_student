@@ -24,7 +24,7 @@
 					<el-menu-item-group>
 						<el-menu-item index="901" @click="makeup($event.index)">违纪管理</el-menu-item>
 						<el-menu-item index="902" @click="makeup($event.index)">申诉管理</el-menu-item>
-						<el-menu-item index="903" @click="makeup($event.index)">违纪解除</el-menu-item>
+						<!-- <el-menu-item index="903" @click="makeup($event.index)">违纪解除</el-menu-item> -->
 					</el-menu-item-group>
 				</el-submenu>
 				<el-submenu index="10">

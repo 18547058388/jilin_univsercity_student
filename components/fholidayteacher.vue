@@ -5,6 +5,7 @@
 		<el-table-column prop="createTime" label="日期" width="100"></el-table-column>
 		<el-table-column prop="realName" label="姓名" width="120"></el-table-column>
 		<el-table-column prop="applyReason" label="假日去向" width="200"></el-table-column>
+		<el-table-column prop="schoolMajorName" label="专业" width="200"></el-table-column>
 		<el-table-column prop="shepi" label="操作" width="170">
 			<template slot-scope="scope">
 				<view style="display: flex;">

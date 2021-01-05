@@ -3,6 +3,7 @@
 	<el-table stripe :data="tableData" border height="750" style="width: 100%;">
 		<el-table-column prop="createTime" label="日期" width="100"></el-table-column>
 		<el-table-column prop="realName" label="姓名" width="120"></el-table-column>
+		<el-table-column prop="schoolMajorName" label="专业" width="200"></el-table-column>
 		<el-table-column prop="cellphone" label="电话号码" width="140"></el-table-column>
 		<el-table-column prop="applyReason" label="申请原因" width="120"></el-table-column>
 		<el-table-column prop="shepi" label="操作" width="170">
