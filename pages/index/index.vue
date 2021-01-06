@@ -16,7 +16,7 @@
 					</template>
 					<el-menu-item-group><el-menu-item index="501" @click="makeup($event.index)">学生宿舍查询</el-menu-item></el-menu-item-group>
 					<el-menu-item-group><el-menu-item index="504" @click="makeup($event.index)">学生寝室调整</el-menu-item></el-menu-item-group>
-					
+					<el-menu-item-group><el-menu-item index="505" @click="makeup($event.index)">学生寝室报修管理</el-menu-item></el-menu-item-group>
 				</el-submenu> 
 				<el-submenu index="9">
 					<template slot="title">
@@ -77,6 +77,7 @@
 				<cappeal v-if="num == 502"></cappeal>
 				<crelieve v-if="num == 503"></crelieve>
 				<manage v-if="num == 504"></manage>
+				<crepair v-if="num == 505"></crepair>
 				<fmakeupteacher v-if="num == 1101"></fmakeupteacher>
 				<fappealteacher v-if="num == 903"></fappealteacher>
 				<fviolationteacher v-if="num == 902"></fviolationteacher>
@@ -109,6 +110,8 @@ import manage from '../../components/manage.vue';
 //在线审批
 import approve from '../../components/approve.vue';
 
+import crepair from "../../components/crepair.vue"
+
 export default {
 	data() {
 		return {
@@ -133,6 +136,7 @@ export default {
 		timetableT,
 		manage,
 		approve,
+		crepair,
 	},
 	mounted() {
 		uni.$on('approve',callback=>{
