@@ -1,18 +1,18 @@
 <template>
 	<el-container style="height: 1000px; border: 1px solid #eee">
-		<el-aside width="230px" style="background-color: rgb(238, 241, 246)">
+		<el-aside width="200px" style="background-color: rgb(238, 241, 246)">
 			<el-menu>
 				<el-submenu index="8">
 					<template slot="title">
 						<i class="el-icon-setting"></i>
-						课程情况（教师）
+						课程情况
 					</template>
 					<el-menu-item-group><el-menu-item index="801" @click="makeup($event.index)">课程表</el-menu-item></el-menu-item-group>
 				</el-submenu>
 			 	<el-submenu index="5">
 					<template slot="title">
 						<i class="el-icon-setting"></i>
-						寝室管理（教师）
+						寝室管理
 					</template>
 					<el-menu-item-group><el-menu-item index="501" @click="makeup($event.index)">学生宿舍查询</el-menu-item></el-menu-item-group>
 					<el-menu-item-group><el-menu-item index="504" @click="makeup($event.index)">学生寝室调整</el-menu-item></el-menu-item-group>
@@ -21,7 +21,7 @@
 				<el-submenu index="9">
 					<template slot="title">
 						<i class="el-icon-message"></i>
-						学生事务管理（教师）
+						学生事务管理
 					</template>
 					<el-menu-item-group>
 						<el-menu-item index="901" @click="makeup($event.index)">违纪管理</el-menu-item>
@@ -32,7 +32,7 @@
 				<el-submenu index="10">
 					<template slot="title">
 						<i class="el-icon-message"></i>
-						学生请假管理（教师）
+						学生请假管理
 					</template>
 					<el-menu-item-group>
 						<el-menu-item index="1001" @click="makeup($event.index)">日常请假管理</el-menu-item>
@@ -42,7 +42,7 @@
 				<el-submenu index="11">
 					<template slot="title">
 						<i class="el-icon-message"></i>
-						学生证补办管理（教师）
+						学生证补办管理
 					</template>
 					<el-menu-item-group><el-menu-item index="1101" @click="makeup($event.index)">学生证补办申请审批</el-menu-item></el-menu-item-group>
 				</el-submenu>
@@ -90,27 +90,27 @@
 </template>
 <script>
 /*违纪管理*/
-import cviolation from '../../components/cviolation.vue';
+import cviolation from '@/components/cviolation.vue';
 /*学生证补办审批*/
-import fmakeupteacher from '../../components/fmakeupteacher.vue';
+import fmakeupteacher from '@/components/fmakeupteacher.vue';
 /*审批学生违纪解除*/
-import fappealteacher from '../../components/fappealteacher.vue';
+import fappealteacher from '@/components/fappealteacher.vue';
 /*审批学生申诉*/
-import fviolationteacher from '../../components/fviolationteacher.vue';
+import fviolationteacher from '@/components/fviolationteacher.vue';
 /*审批学生违纪情况*/
-import fdisciplinaryteacher from '../../components/fdisciplinaryteacher.vue';
+import fdisciplinaryteacher from '@/components/fdisciplinaryteacher.vue';
 /*审批学生请假*/
-import fleaveteacher from '../../components/fleaveteacher.vue';
+import fleaveteacher from '@/components/fleaveteacher.vue';
 /*查阅学生节日去向信息*/
-import fholidayteacher from '../../components/fholidayteacher.vue';
+import fholidayteacher from '@/components/fholidayteacher.vue';
 // 课程表(教师)
-import timetableT from '../../components/timetableT.vue';
+import timetableT from '@/components/timetableT.vue';
 //寝室调整管理
-import manage from '../../components/manage.vue';
+import manage from '@/components/manage.vue';
 //在线审批
-import approve from '../../components/approve.vue';
+import approve from '@/components/approve.vue';
 
-import crepair from "../../components/crepair.vue"
+import crepair from "@/components/crepair.vue"
 
 export default {
 	data() {

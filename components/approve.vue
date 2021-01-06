@@ -21,8 +21,8 @@
 			<el-table-column fixed="right" label="操作">
 				<template slot-scope="scope">
 					<view style="display: flex;">
-						<el-button v-if="scope.row.applyStatus == 1" @click="status(scope.row)" type="primary">通过</el-button>
-						<el-button v-if="scope.row.applyStatus == 1" type="danger" @click="open(scope.row)">驳回</el-button>
+						<el-button v-if="scope.row.applyStatus == 1" @click="status(scope.row)" type="primary" size="small">通过</el-button>
+						<el-button v-if="scope.row.applyStatus == 1" type="danger" @click="open(scope.row)" size="small">驳回</el-button>
 					</view>
 				</template>
 			</el-table-column>
