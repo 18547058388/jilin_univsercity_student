@@ -144,7 +144,6 @@ export default {
 				console.log(err);
 			}
 		});
-		uni.hideLoading();
 	}
 };
 </script>

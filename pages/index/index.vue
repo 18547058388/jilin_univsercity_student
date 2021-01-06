@@ -1,6 +1,6 @@
 <template>
 	<el-container style="height: 1000px; border: 1px solid #eee">
-		<el-aside width="200px" style="background-color: rgb(238, 241, 246)">
+		<el-aside width="230px" style="background-color: rgb(238, 241, 246)">
 			<el-menu>
 				<el-submenu index="8">
 					<template slot="title">

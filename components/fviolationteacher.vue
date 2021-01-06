@@ -120,6 +120,9 @@ export default {
 		};
 	},
 	mounted() {
+		uni.showLoading({
+			mask:true
+		})
 		this.request.post({
 			url:"teacher/teacher/discipline/appeal/v1/list",
 			params:{
@@ -127,6 +130,7 @@ export default {
 			success:res=>{
 				console.log(res);
 				this.tableData = res.rtData.dts;
+				uni.hideLoading()
 			},
 			error:err=>{
 				console.log(err);
