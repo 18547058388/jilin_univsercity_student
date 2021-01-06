@@ -19,11 +19,12 @@
 			<el-table-column label="操作">
 				<template slot-scope="scope">
 					<view v-if="scope.row.applyStatus == 1" style="display: flex;">
-						<el-button type="primary" @click="status(scope.row)">通过</el-button>
-						<el-button type="danger" @click="open(scope.row)">驳回</el-button>
+						<el-button type="primary" @click="status(scope.row)" size="mini">通过</el-button>
+						<el-button type="danger" @click="open(scope.row)" size="mini">驳回</el-button>
 					</view>
 				</template>
 			</el-table-column>
+				<el-table-column prop="checkReason" label="教师反馈"></el-table-column>
 		</el-table>
 	</view>
 </template>
@@ -35,33 +36,32 @@ export default {
 			applList: []
 		};
 	},
- 	mounted() {
+	mounted() {
 		this.getcchange();
-	}, 
+	},
 	methods: {
 		/* 调接口，查学生申请 */
 		getcchange() {
 			let self = this;
 			self.request.post({
-				url: 'teacher/teacher/approval/v1/list',
+				url:'teacher/teacher/approval/v1/list',
 				params: {
-					applyType: 6,
+					applyType: 6
 				},
 				success: response => {
 					self.applList = response.rtData.dts;
 				},
-
 				error: error => {
 					console(error.errMsg);
 				}
 			});
 		},
 		/* 驳回申请 按钮*/
-	 	open(scope) {
+		open(scope) {
 			this.$prompt('请填写驳回理由', '提示', {
 				confirmButtonText: '确定',
 				cancelButtonText: '取消',
-				inputType:"textarea"
+				inputType: 'textarea'
 			})
 				.then(({ value }) => {
 					this.$message({
@@ -73,11 +73,11 @@ export default {
 					this.request.post({
 						url: 'teacher/teacher/approval/v1/apply',
 						params: {
-							teacherId: 1252040511921938433,
-							applyStatus: 4,
-							studentApplyId: scope.studentApplyId,
-							checkReason: value,
-							inputType:"textarea"
+							"teacherId": "1252040511921938433",
+							"applyStatus": 4,
+							"studentApplyId": scope.studentApplyId,
+							"checkReason": value,
+							"inputType": 'textarea'
 						},
 						success: response => {
 							console.log(response);
@@ -93,28 +93,27 @@ export default {
 						message: '取消输入'
 					});
 				});
-		}, 
+		},
 		//审批状态，同意申请
-		 status(scope) {
+		status(scope) {
 			let self = this;
 			this.loading = true;
 			this.request.post({
 				url: 'teacher/teacher/approval/v1/apply',
 				params: {
-					teacherId: 1252040511921938433,
-					applyStatus: 3,
-					studentApplyId: scope.studentApplyId,
-					checkReason: '同意'
+					"teacherId":" 1252040511921938433",
+					"applyStatus": 3,
+					"studentApplyId": scope.studentApplyId,
+					"checkReason": '同意'
 				},
 				success: response => {
-					console.log(scope.studentApplyId);
 					console.log(response);
 				},
 				error: error => {
 					console.log(error.errMsg);
 				}
 			});
-		} 
+		}
 	}
 };
 </script>
